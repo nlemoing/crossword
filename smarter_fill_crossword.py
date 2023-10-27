@@ -149,16 +149,14 @@ def is_complete(grid: Grid, clues: Clues, words: List[str]) -> bool:
 
 def solve(grid: Grid, clues: Clues, words: List[str]) -> Optional[Grid]:
     if is_complete(grid, clues, words):
-        return grid
+        with open("grids.txt", "a") as f:
+            f.write(str(grid))
 
     for _, nbr in neighbors(grid, clues, words):
-        sol = solve(nbr, clues, words)
-        if sol:
-            return sol
-    return None
+        solve(nbr, clues, words)
 
 grid = Grid(open("sample.txt").readlines())
 clues = Clues(grid)
 words = [s.strip() for s in open("wordle.txt").readlines()]
 
-print(solve(grid, clues, words))
+solve(grid, clues, words)
