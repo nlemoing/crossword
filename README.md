@@ -46,9 +46,28 @@ imbue
 rouse
 preen
 
-These two things can be fixed by changing the algorithm slightly.
-The first is to pick a better heuristic for searching. We can improve on this by 
-taking some ideas from this paper: https://cdn.aaai.org/AAAI/1990/AAAI90-032.pdf
-Their idea is to start by ranking each candidate by the number of possible words that
-can cross it. This is similar to the heuristic we were using earlier but it does a much
-better job of looking ahead and at looking at the whole grid (not just the clue being filled).
+
+# Smarter fill
+These two things can be fixed, but our algorithm is still slow. We can improve that
+by using a better heuristic for searching (so that we can eliminate more options). 
+We can improve on this by taking some ideas from this paper: 
+https://cdn.aaai.org/AAAI/1990/AAAI90-032.pdf
+Their idea is that after we've picked the most constrained clue, we should rank options
+by the number of possibilities they leave open for subsequent words.
+
+This process produced the following grid (starting from a blank grid) in 58 seconds
+using my M2 Macbook Pro:
+crass
+hunch
+algae
+fella
+freer
+
+or flipped:
+chaff
+ruler
+angle
+scale
+shear
+
+
