@@ -53,35 +53,41 @@ To make this work well, we'll need to make use of our knowledge of crosswords to
 This is essentially brute force, but with a heuristic that can help us avoid spending too much
 time in the iteration phase. By checking the most constrained clue first, we're more likely
 to exit early. E.g. if we look at partial grid:
+```
 abode
 decor
 .....
 .....
 .....
-the third row has no restrictions, so we could put anything there and continue on. However,
+```
+The third row has no restrictions, so we could put anything there and continue on. However,
 we probably want to fill the clues that are harder to satisfy first, otherwise we'll waste
 a lot of time. So, it might make more sense to try to fill the first column first instead
 since we may exit early.
 
 Churned away with some poor seed entries at the top (abode)
 Produced the following result for chimp at the top:
+```
 chimp
 audio
 brisk
 arose
 lymyr
+```
+
 This would be great, except the last across answer isn't real!
 This is because we aren't checking whether there are candidates for the neighbor grid before marking it as complete.
 However, this illustrates the importance of a good seed. Although the "chimp" seed never
 produced a well-filled grid, it was 90% of the way there, whereas the "abode" seed never produced any grids.
 
 My algorithm also produced this grid at one point, which breaks an important rule in crosswords: no repeated words. (it has 2)
+```
 chimp
 humor
 imbue
 rouse
 preen
-
+```
 
 # Smarter fill
 These two things can be fixed, but our algorithm is still slow. We can improve that
