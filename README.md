@@ -38,8 +38,8 @@ search.
 Breadth-first search is good at examining the entire solution space and finding the most optimal solution 
 efficiently. Is this a good fit for us?
 * Our search space is really wide, and our valid solutions are far away. Each grid has thousands of potential neighbours, and to get to a valid solution, we have to take as many steps as there are clues in the grid. Breadth-first search will get caught examining all the neighbors and won't ever make it to the end.
-* No clear notion of what it means to be optimal. Is it better to have unique words that stretch people's vocabulary? Is it better to include interesting letters, or different combinations of letters? Does the fill not matter at all, or can we make up for a poor grid with interesting clues? We might have heuristics for what makes a crossword better or worse, but at the end of the day, crosswords are made for people to solve, and our program won't be as good as a person is at determining whether our fill is subjectively good.
-* Measures are global, not local. The quality of a puzzle isn't something that can be determined on the fly. We could have a promising start with exciting entries, only for it to fall short because the only crossing clues that make it work are clunky words that no one uses in real life. 
+* There's no clear notion of what it means to be optimal. Is it better to have unique words that stretch people's vocabulary? Is it better to include interesting letters, or different combinations of letters? Does the word choice not matter at all if we can come up with interesting clues? We might have heuristics for what makes a crossword better or worse, but at the end of the day, crosswords are made for people to solve, and our program won't be as good as a person is at determining whether our grid is good.
+* Measures of quality are global, not local. The quality of a puzzle isn't something that can be determined on the fly. We could have a promising start with exciting entries, only for it to fall short because the only crossing clues that make it work are clunky words that no one uses in real life. 
 
 Therefore, we'll go with depth-first search, which will look like the following:
 1. Pick a clue to fill.
@@ -48,11 +48,30 @@ Therefore, we'll go with depth-first search, which will look like the following:
 
 To make this work well, we'll need to make use of our knowledge of crosswords to direct our search and eliminate certain possibilities that we know won't be fruitful.
 
-## Attempt 1 (naive fill): search by checking the most constrained clue first
 
-This is essentially brute force, but with a heuristic that can help us avoid spending too much
-time in the iteration phase. By checking the most constrained clue first, we're more likely
-to exit early. E.g. if we look at partial grid:
+
+1. First clue, naive word ordering
+2. Clue with most filled letters, naive word ordering
+3. Clue with fewest possibilities, word ordering by possibilities in resulting grid
+
+## Attempt 1: naive fill
+Here, we make no attempt to use heuristics; we always pick the first unfilled clue,
+and we always pick a random word to explore first.
+
+This approach is able to succeed on small, partially filled grids. On the one below,
+the program returns almost instantly:
+```
+allow
+belch
+agate
+.....
+.....
+```
+However, if we run the program on a grid with one fewer clue filled in, it takes 8 seconds.
+
+## Attempt 2: clue with most filled letters, naive word ordering
+
+If we look at partial grid:
 ```
 abode
 decor
@@ -63,39 +82,30 @@ decor
 The third row has no restrictions, so we could put anything there and continue on. However,
 we probably want to fill the clues that are harder to satisfy first, otherwise we'll waste
 a lot of time. So, it might make more sense to try to fill the first column first instead
-since we may exit early.
+since we realize there are no valid grids earlier.
 
-Churned away with some poor seed entries at the top (abode)
-Produced the following result for chimp at the top:
-```
-chimp
-audio
-brisk
-arose
-lymyr
-```
+# Attempt 3: clue with fewest valid remaining options, word ordering by number of possibilities for neighbours
+This approach modifies the clue choice to do a better job of checking for constrained clues based on
+the remaining options available.
 
-This would be great, except the last across answer isn't real!
-This is because we aren't checking whether there are candidates for the neighbor grid before marking it as complete.
-However, this illustrates the importance of a good seed. Although the "chimp" seed never
-produced a well-filled grid, it was 90% of the way there, whereas the "abode" seed never produced any grids.
-
-My algorithm also produced this grid at one point, which breaks an important rule in crosswords: no repeated words. (it has 2)
+Consider the following partial grid:
 ```
-chimp
-humor
-imbue
-rouse
-preen
+abode
+devil
+.....
+.....
+.....
 ```
 
-# Smarter fill
-These two things can be fixed, but our algorithm is still slow. We can improve that
-by using a better heuristic for searching (so that we can eliminate more options). 
-We can improve on this by taking some ideas from this paper: 
-https://cdn.aaai.org/AAAI/1990/AAAI90-032.pdf
-Their idea is that after we've picked the most constrained clue, we should rank options
-by the number of possibilities they leave open for subsequent words.
+The previous approach would have picked 1D as the first clue to fill. However, we could narrow things down more by starting with 3D clue, since there are only 5 options in our dictionary that begin with `ov`, compared to 11 that begin with `ad`. This check is more expensive to perform since it involves checking more matches; however, it does tend to perform better in practice because it's able to prune things quite
+aggressively.
+
+This is also the first time we're making a word ordering choice. Our strategy is going to be to start with
+words that leave more possibilities for crossing clues. Here, we're not trying to narrow possibilities like
+we were when choosing a clue to start with. It didn't matter which clue we started exploring since each one 
+could lead to the same solution, so it made sense to pick the clue that resulted in the fewest paths to 
+explore. However, with word choice, we want to increase the likelihood that the neighbours we explore are also
+valid.
 
 I ran this process for a few hours on my laptop and it generated 51 grids. The first was
 available within a minute and I used it to build this crossword:
@@ -103,4 +113,14 @@ https://crosshare.org/crosswords/BcOFnK6cWhK4rsoxLvGr/taking-measurements
 
 I actually rotated the grid from the configuration my program spit out because it resulted
 in some interested stacked across clues that shared a theme. How serendipitous!
+
+## Further improvements
+
+There's still a lot to be desired in terms of efficiency:
+* Match efficiency: we're still running through each word and checking it via string comparison
+* Small dictionary: since the dictionary we're using is small, we can more easily check options exhaustively, but it also means it takes longer to find valid fill since there are fewer valid grids.
+* We're spending a long time finding the most optimal clue to start with when clues have several valid options
+
+Lots of good ideas sourced from https://cdn.aaai.org/AAAI/1990/AAAI90-032.pdf
+Kudos to crosshare, which have an open-source platform that includes an autofiller: https://github.com/crosshare-org/crosshare
 
