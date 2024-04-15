@@ -1,0 +1,336 @@
+---
+crass   chaff
+hunch   ruler
+algae   angle
+fella   scale
+freer   shear
+---
+crass   crime
+ranch   raven
+ivory   anode
+medal   scram
+enemy   shyly
+---
+class   crust
+rival   lithe
+utile   avian
+shave   salve
+tenet   sleet
+---
+spasm   screw
+clone   plane
+rarer   aorta
+enter   sneer
+weary   merry
+---
+spasm   shush
+haste   pasta
+usher   ashen
+steer   steed
+handy   merry
+---
+amass   adage
+debit   melon
+alone   about
+gouge   singe
+enter   steer
+---
+amass   adage
+debit   melon
+alone   abort
+gorge   singe
+enter   steer
+---
+amass   agape
+gamma   mafia
+afoot   among
+pinky   smoke
+eager   satyr
+---
+amass   ahead
+haute   mange
+endow   audit
+agile   stole
+deter   sewer
+---
+salsa   scent
+clamp   algae
+egret   larva
+naval   smear
+teary   aptly
+---
+grass   gripe
+ranch   raven
+ivory   anode
+pedal   scram
+enemy   shyly
+---
+grass   grime
+ranch   raven
+ivory   anode
+medal   scram
+enemy   shyly
+---
+cress   crust
+ranch   ralph
+ultra   enter
+speed   scree
+three   shade
+---
+scrap   strip
+theta   china
+rigor   regal
+inane   atone
+paler   parer
+---
+scrap   scree
+china   chill
+rigor   rigid
+elide   anode
+elder   parer
+---
+scrap   screw
+china   chili
+rigor   rigid
+elide   anode
+wider   parer
+---
+masse   maple
+alpha   alien
+pilot   splat
+leave   shove
+enter   eater
+---
+masse   maple
+apnea   apron
+prong   snout
+louse   sense
+enter   eager
+---
+scarf   sleet
+lower   corer
+erase   aware
+eerie   resin
+trend   freed
+---
+scarf   scent
+carol   canoe
+ensue   arson
+noose   rouse
+tenet   fleet
+---
+scarf   salvo
+armor   cried
+liege   amend
+venue   rogue
+odder   freer
+---
+scarf   salvo
+armor   crier
+liege   amend
+venue   rogue
+order   freer
+---
+smash   scoff
+cello   metro
+otter   alter
+freed   sleet
+forte   horde
+---
+chess   crush
+reach   hello
+ultra   eaten
+sleek   scree
+honey   shaky
+---
+chess   crush
+resin   hello
+ultra   ester
+sleek   siren
+horny   snaky
+---
+scalp   smack
+molar   colon
+alibi   alive
+coven   label
+knelt   print
+---
+stamp   score
+cigar   tibia
+obese   agent
+rinse   masse
+eaten   preen
+---
+stamp   shame
+hotel   tonal
+anode   atone
+mania   medic
+elect   pleat
+---
+blast   blame
+labor   later
+atone   abode
+media   sonic
+erect   treat
+---
+blast   blurb
+lower   loser
+usage   aware
+rerun   segue
+breed   trend
+---
+cross   chaos
+haunt   ralph
+altar   outer
+opera   snare
+shrew   straw
+---
+cross   class
+lemon   rerun
+arena   omega
+sugar   sonar
+snare   snare
+---
+cross   class
+lemon   rerun
+arena   omega
+sugar   sonar
+snarl   snarl
+---
+space   scald
+corer   polar
+altar   artsy
+lasso   cease
+dryer   error
+---
+scald   spine
+paler   canon
+inlay   allot
+noose   lease
+enter   dryer
+---
+scald   scale
+color   colon
+alloy   allot
+loose   loose
+enter   dryer
+---
+scald   space
+polar   corer
+artsy   altar
+cease   lasso
+error   dryer
+---
+beast   blame
+labor   eater
+atone   abode
+media   sonic
+erect   treat
+---
+paste   poser
+opera   apple
+sprig   serif
+elite   trite
+refer   eager
+---
+scare   share
+haven   cabal
+about   avoid
+raise   reuse
+elder   enter
+---
+scare   stage
+talon   cabal
+about   aloud
+gauge   rouge
+elder   enter
+---
+feast   flame
+labor   eater
+atone   abode
+media   sonic
+erect   treat
+---
+truss   track
+ratty   raven
+avian   utile
+cello   stale
+kneed   synod
+---
+truss   tramp
+retch   refer
+afire   utile
+melee   scree
+preen   sheen
+---
+gross   glass
+lemon   rerun
+arena   omega
+sugar   sonar
+snare   snare
+---
+gross   glass
+lemon   rerun
+arena   omega
+sugar   sonar
+snarl   snarl
+---
+scale   scald
+colon   color
+allot   alloy
+loose   loose
+dryer   enter
+---
+stage   scare
+cabal   talon
+aloud   about
+rouge   gauge
+enter   elder
+---
+coast   curse
+unite   onion
+riser   aisle
+solar   steam
+enema   terra
+---
+scuba   snack
+nasal   cabin
+abase   usage
+cigar   basal
+knelt   alert
+---
+spade   shape
+haven   pagan
+agent   avert
+parse   dense
+enter   enter
+---
+scoff   smash
+metro   cello
+alter   otter
+sleet   freed
+horde   forte
+---
+swarm   smote
+movie   woman
+omega   avert
+tarot   rigor
+entry   meaty
+---
+adapt   amuse
+melee   delta
+ultra   altar
+stair   peril
+early   teary
+---
+screw   spasm
+plane   clone
+aorta   rarer
+sneer   enter
+merry   weary
+---
+screw   scrap
+chili   china
+rigid   rigor
+anode   elide
+parer   wider
