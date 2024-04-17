@@ -4,7 +4,12 @@ from enum import Enum
 from typing import Optional, Tuple, NamedTuple, Callable
 import copy
 
+import heapq
+
 WORDS = [s.strip() for s in open("sparse_grid/words.txt").readlines()]
+# worst density we can have is basically half the perimeter, which on a square
+# would be 2 / x where x is the side length
+MIN_DENSITY = 0.1
 
 class Direction(Enum):
     ACROSS = 0
@@ -85,7 +90,10 @@ class State:
         ]
     
     def __hash__(self) -> int:
-        return self.assignments._hash()
+        return hash(tuple(sorted(self.assignments)))
+
+    def __lt__(self, other: State) -> State:
+        return True
     
     def bounds(self) -> Tuple[int, int, int, int]:
         min_row = min(x.row for x in self.assignments)
@@ -107,7 +115,7 @@ class State:
                     letters[(assignment.row + i, assignment.col)] = char
         for r in range(min_row, max_row):
             for c in range(min_col, max_col):
-                s += letters.get((r,c), ".")        
+                s += letters.get((r,c), " ")        
             s += "\n"
         return s
     
@@ -140,9 +148,10 @@ class State:
         return new_state
 
     
-    def quality() -> float:
-        # quality is some mix of number of words and density, TBD
-        return 0
+    def density(self) -> float:
+        min_row, min_col, max_row, max_col = self.bounds()
+        area = (max_row - min_row + 1) * (max_col - min_col + 1)
+        return sum(len(WORDS[a.word_index]) for a in self.assignments) / area
 
     
 def get_biggest_index(l: list[str]):
@@ -187,20 +196,36 @@ def neighbours(state: State) -> list[State]:
 
     for potential_assignment in potential_assignments:
         nbr = state.add(potential_assignment)
-        if nbr is not None:
+        if nbr is not None and nbr.density() >= MIN_DENSITY:
             neighbours.append(nbr)
 
     return neighbours
 
-def generate():
+def generate() -> Optional[State]:
     # To get us started, we'll always start by getting the biggest word and putting it at 0,0 going across
     # This cuts down the solution space and gives us a good jumping off point for future words
     biggest_word = get_biggest_index(WORDS)
-    start_state = State(biggest_word)
-    m = start_state.add(WordAssignment(3, 0, 6, Direction.DOWN))
-    o = m.add(WordAssignment(2, 2, 5, Direction.ACROSS))
-    n = o.add(WordAssignment(1, 0, 3, Direction.DOWN))
-    print(n)
+    visited = set[int]()
+    states = [(1, State(biggest_word))]
+    heapq.heapify(states)
+
+    while states:
+        _, state = heapq.heappop(states)
+
+        h = hash(state)
+        if h in visited:
+            continue
+        visited.add(h)
+
+
+        if len(state.assignments) == len(WORDS):
+            return state
+        
+        for nbr in neighbours(state):
+            heapq.heappush(states, (nbr.density(), nbr))
     
+    return None
+
     
-generate()
+if __name__ == "__main__":
+    print(generate())
