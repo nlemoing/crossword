@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional, Tuple, NamedTuple, Callable
+from typing import Optional, Tuple, NamedTuple, Callable, Generator
 import copy
 
 import heapq
@@ -201,7 +201,7 @@ def neighbours(state: State) -> list[State]:
 
     return neighbours
 
-def generate() -> Optional[State]:
+def generate() -> Generator[State]:
     # To get us started, we'll always start by getting the biggest word and putting it at 0,0 going across
     # This cuts down the solution space and gives us a good jumping off point for future words
     biggest_word = get_biggest_index(WORDS)
@@ -219,13 +219,13 @@ def generate() -> Optional[State]:
 
 
         if len(state.assignments) == len(WORDS):
-            return state
-        
-        for nbr in neighbours(state):
-            heapq.heappush(states, (nbr.density(), nbr))
-    
-    return None
-
+            yield state
+        else:
+            for nbr in neighbours(state):
+                heapq.heappush(states, (nbr.density(), nbr))
     
 if __name__ == "__main__":
-    print(generate())
+    grids = generate()
+    print(next(grids))
+    while input("Another? (y/n)\n") == "y":
+        print(next(grids))
